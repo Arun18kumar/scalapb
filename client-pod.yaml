@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata: 
+ name: clientpod
+ labels: 
+  component: web
+spec:
+ containers:
+  - name: client
+    image: arun1807/helloworls:latest
+    ports:
+     - containerPort: 50051

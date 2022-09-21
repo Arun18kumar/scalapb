@@ -1,0 +1,41 @@
+syntax = "proto3";
+package v1;
+option go_package = "gitlab.dt.ae/iothub-external-integrations/iothub-integration-protos/.go-build/v1/iotdecoderservice";
+
+import "google/protobuf/struct.proto";
+
+message IOTDecodeRequest {
+  string id = 1;
+  string device_id = 2;
+  string device_parser_id = 3;
+  bytes raw_data = 4;
+}
+
+message IOTDecodeResult {
+  google.protobuf.Struct decoded = 1;
+}
+
+message IOTDecodeResponse {
+  int32 status = 1;
+  string id = 2;
+  IOTDecodeResult result = 3;
+  IOTDecodeError error = 4;
+}
+
+message IOTDecodeError {
+  int32 code = 1;
+  string message = 2;
+  string details = 3;
+}
+
+message IOTDecodeRequests {
+  repeated IOTDecodeRequest requests = 1;
+}
+
+message IOTDecodeResponses {
+  repeated IOTDecodeResponse responses = 2;
+}
+
+service IoTDecoderService {
+  rpc Decode(IOTDecodeRequests) returns (IOTDecodeResponses);
+}
